@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISSA_USDT - منصة التداول الذكية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        :root {
+            --primary: #0a3d62;
+            --secondary: #1e90ff;
+            --accent: #00ced1;
+            --success: #00cc66;
+            --warning: #ffaa00;
+            --danger: #ff4757;
+            --dark: #0c1e3e;
+            --light: #f5f6fa;
+            --text: #333;
+            --gray: #718096;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a3d62, #1e3c72, #2a5298);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* تسجيل الدخول */
+        .login-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .logo-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        .logo-header h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        
+        .logo-header p {
+            font-size: 1.1rem;
+            color: #a0aec0;
+            margin-top: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 6px;
+            margin-bottom: 30px;
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 14px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+        
+        .tab.active {
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            color: #001220;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #a0aec0;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 16px 20px 16px 55px;
+            background: rgba(255, 255, 255, 0.09);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            border-radius: 15px;
+            color: #fff;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.12);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 206, 209, 0.2);
+        }
+        
+        .form-control::placeholder {
+            color: #718096;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+        
+        .remember {
+            display: flex;
+            align-items: center;
+        }
+        
+        .remember input {
+            margin-left: 8px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .forgot-password {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .forgot-password:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+        
+        .btn-login {
+            width: 100%;
+            padding: 17px;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            border: none;
+            border-radius: 15px;
+            color: #001220;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 206, 209, 0.35);
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 206, 209, 0.45);
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 25px;
+            color: #a0aec0;
+            font-size: 1.05rem;
+        }
+        
+        .signup-link a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-right: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .signup-link a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+        
+        .security {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            color: #a0aec0;
+            font-size: 0.95rem;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+        }
+        
+        .security i {
+            color: var(--success);
+            margin-left: 8px;
+            font-size: 1.2rem;
+        }
+        
+        /* لوحة التحكم - التعديلات */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background: rgba(10, 25, 47, 0.95); /* زيادة العتامة */
+            backdrop-filter: blur(10px);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            right: 0;
+            padding: 25px 20px;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+            z-index: 1000; /* زيادة z-index */
+        }        .sidebar-header {
+            text-align: center;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 25px;
+        }
+        
+        .sidebar-header h2 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-header p {
+            color: #a0aec0;
+            font-size: 0.95rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 206, 209, 0.15);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        
+        .user-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--accent), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        
+        .user-details h3 {
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .user-details p {
+            color: var(--accent);
+            font-size: 0.9rem;
+        }
+        
+        .nav-links {
+            margin-bottom: 30px;
+        }
+        
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            color: #a0aec0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .nav-item i {
+            margin-left: 12px;
+            font-size: 1.2rem;
+            width: 25px;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: rgba(30, 144, 255, 0.2);
+            color: white;
+        }
+        
+        .main-content {
+            margin-right: 280px;
+            padding: 30px;
+            position: relative;
+            z-index: 1; /* ضبط z-index للمحتوى */
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px 25px;
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .welcome h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: white;
+        }
+        
+        .welcome p {
+            color: #a0aec0;
+            font-size: 1.1rem;
+        }
+        
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 18px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .card-header h3 {
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .card-header i {
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+        
+        .card-value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .card-change {
+            display: flex;
+            align-items: center;
+            color: var(--success);
+            font-weight: 500;
+        }
+        
+        .card-change.down {
+            color: var(--danger);
+        }
+        
+        .card-change i {
+            margin-left: 5px;
+        }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+        
+        .chart-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 18px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .chart-header h3 {
+            color: white;
+            font-size: 1.3rem;
+        }
+        
+        .chart-placeholder {
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0aec0;
+            font-size: 1.1rem;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+        }
+        
+        .recent-transactions {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 18px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .transactions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .transactions-header h3 {
+            color: white;
+            font-size: 1.3rem;
+        }
+        
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .transaction-table th {
+            text-align: right;
+            padding: 15px;
+            color: #a0aec0;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .transaction-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+        }
+        
+        .transaction-type {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .type-deposit {
+            background: rgba(0, 204, 102, 0.15);
+            color: var(--success);
+        }
+        
+        .type-withdraw {
+            background: rgba(255, 71, 87, 0.15);
+            color: var(--danger);
+        }
+        
+        .type-trade {
+            background: rgba(30, 144, 255, 0.15);
+            color: var(--secondary);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .status-completed {
+            background: rgba(0, 204, 102, 0.15);
+            color: var(--success);
+        }
+        
+        .status-pending {
+            background: rgba(255, 170, 0, 0.15);
+            color: var(--warning);
+        }
+        
+        /* صفحة المحفظة */
+        .wallet-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+        
+        .wallet-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 18px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .wallet-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .wallet-header i {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-left: 15px;
+        }
+        
+        .wallet-details h3 {
+            color: white;
+            margin-bottom: 5px;
+        }
+        
+        .wallet-details p {
+            color: #a0aec0;
+        }
+        
+        /* صفحة التداول */
+        .trading-pairs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+        
+        .pair-card {
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .pair-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px);
+        }
+        
+        .pair-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        /* صفحة التحويلات */
+        .transfer-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 18px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                width: 80px;
+                z-index: 1000; /* تأكيد z-index */
+            }
+            
+            .sidebar-header h2, .sidebar-header p, .user-details, .nav-item span {
+                display: none;
+            }
+            
+            .main-content {
+                margin-right: 80px;
+            }
+            
+            .nav-item {
+                justify-content: center;
+                padding: 18px 10px;
+            }
+            
+            .nav-item i {
+                margin-left: 0;
+                font-size: 1.4rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 15px 10px;
+            }
+            
+            .main-content {
+                margin-right: 70px;
+                padding: 20px 15px;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            .logo-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .forgot-password {
+                margin-top: 15px;
+            }
+        }
+    </style>
+</head><body>
+    <!-- صفحة تسجيل الدخول -->
+    <section class="login-section" id="loginSection">
+        <div class="login-container">
+            <div class="logo-header">
+                <h1>ISSA_USDT</h1>
+                <p>Save your money & time</p>
+            </div>
+            
+            <div class="tabs">
+                <div class="tab active">الهاتف</div>
+                <div class="tab">البريد الإلكتروني</div>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">بريد إلكتروني</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" class="form-control" placeholder="بريد إلكتروني">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" class="form-control" placeholder="كلمة المرور">
+                    </div>
+                </div>
+                
+                <div class="options">
+                    <div class="remember">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">تذكرني</label>
+                    </div>
+                    <a href="#" class="forgot-password">هل نسيت كلمة المرور؟</a>
+                </div>
+                
+                <button type="submit" class="btn-login">تسجيل الدخول</button>
+            </form>
+            
+            <div class="signup-link">
+                ليس لديك حساب؟ <a href="#">اشتراك</a>
+            </div>
+            
+            <div class="security">
+                <i class="fas fa-shield-alt"></i>
+                <span>نحن نحمي معلوماتك بأعلى معايير الأمان</span>
+            </div>
+        </div>
+    </section><!-- لوحة التحكم -->
+<section class="dashboard" id="dashboard">
+    <!-- القائمة الجانبية -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>ISSA_USDT</h2>
+            <p>منصة التداول الذكية</p>
+        </div>
+        
+        <div class="user-info">
+            <div class="user-avatar">م</div>
+            <div class="user-details">
+                <h3>محمد أحمد</h3>
+                <p>+966 50 123 4567</p>
+            </div>
+        </div>
+        
+        <div class="nav-links">
+            <a href="#" class="nav-item active" data-page="home-page">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </a>
+            <a href="#" class="nav-item" data-page="wallet-page">
+                <i class="fas fa-wallet"></i>
+                <span>المحفظة</span>
+            </a>
+            <a href="#" class="nav-item" data-page="trading-page">
+                <i class="fas fa-chart-line"></i>
+                <span>التداول</span>
+            </a>
+            <a href="#" class="nav-item" data-page="transfer-page">
+                <i class="fas fa-exchange-alt"></i>
+                <span>التحويلات</span>
+            </a>
+            <a href="#" class="nav-item" data-page="history-page">
+                <i class="fas fa-history"></i>
+                <span>السجل</span>
+            </a>
+            <a href="#" class="nav-item" data-page="settings-page">
+                <i class="fas fa-cog"></i>
+                <span>الإعدادات</span>
+            </a>
+            <a href="#" class="nav-item" data-page="support-page">
+                <i class="fas fa-question-circle"></i>
+                <span>الدعم</span>
+            </a>
+        </div>
+    </div>
+    
+    <!-- المحتوى الرئيسي -->
+    <div class="main-content">
+        <!-- صفحة الرئيسية -->
+        <div id="home-page" class="page active">
+            <div class="header">
+                <div class="welcome">
+                    <h1>مرحبًا بك، محمد!</h1>
+                    <p>هذه نظرة عامة على أداء حسابك</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-login" style="width: auto; padding: 12px 25px;">
+                        <i class="fas fa-plus"></i> إيداع أموال
+                    </button>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3>رصيد المحفظة</h3>
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="card-value">$24,568.75</div>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i> +$1,250.50 (5.2%)
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3>أرباح اليوم</h3>
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-value">$1,245.30</div>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i> +$320.75 (3.8%)
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3>إجمالي الاستثمار</h3>
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="card-value">$42,875.00</div>
+                    <div class="card-change down">
+                        <i class="fas fa-arrow-down"></i> -$875.20 (1.9%)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="charts-container">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>أداء المحفظة</h3>
+                        <div class="time-filters">
+                            <button>يومي</button>
+                            <button>أسبوعي</button>
+                            <button>شهري</button>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-area"></i> رسم بياني لأداء المحفظة
+                    </div>
+                </div>
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>توزيع الأصول</h3>
+                    </div>
+                    <div class="chart-placeholder">
+                        <i class="fas fa-chart-pie"></i> رسم بياني لتوزيع الأصول
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-transactions">
+                <div class="transactions-header">
+                    <h3>آخر العمليات</h3>
+                    <a href="#" class="forgot-password">عرض الكل</a>
+                </div>
+                
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>الوصف</th>
+                            <th>المبلغ</th>
+                            <th>النوع</th>
+                            <th>التاريخ</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>بيع BTC/USDT</td>
+                            <td>$1,250.50</td>
+                            <td><span class="transaction-type type-trade">تداول</span></td>
+                            <td>12/06/2023</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                        <tr>
+                            <td>إيداع بالبطاقة</td>
+                            <td>$5,000.00</td>
+                            <td><span class="transaction-type type-deposit">إيداع</span></td>
+                            <td>11/06/2023</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                        <tr>
+                            <td>شراء ETH/USDT</td>
+                            <td>$2,875.25</td>
+                            <td><span class="transaction-type type-trade">تداول</span></td>
+                            <td>10/06/2023</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                        <tr>
+                            <td>سحب إلى البنك</td>
+                            <td>$3,000.00</td>
+                            <td><span class="transaction-type type-withdraw">سحب</span></td>
+                            <td>09/06/2023</td>
+                            <td><span class="status-badge status-pending">قيد الانتظار</span></td>
+                        </tr>
+                        <tr>
+                            <td>بيع XRP/USDT</td>
+                            <td>$845.75</td>
+                            <td><span class="transaction-type type-trade">تداول</span></td>
+                            <td>08/06/2023</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>        <!-- صفحة المحفظة -->
+        <div id="wallet-page" class="page">
+            <div class="header">
+                <div class="welcome">
+                    <h1>المحفظة الرقمية</h1>
+                    <p>إدارة أصولك وعمليات الإيداع والسحب</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-login" style="width: auto; padding: 12px 25px; margin-left: 10px;">
+                        <i class="fas fa-download"></i> سحب أموال
+                    </button>
+                    <button class="btn-login" style="width: auto; padding: 12px 25px;">
+                        <i class="fas fa-upload"></i> إيداع أموال
+                    </button>
+                </div>
+            </div>
+            
+            <div class="wallet-summary">
+                <div class="wallet-card">
+                    <div class="wallet-header">
+                        <i class="fab fa-bitcoin"></i>
+                        <div class="wallet-details">
+                            <h3>محفظة البيتكوين</h3>
+                            <p>BTC/USDT</p>
+                        </div>
+                    </div>
+                    <div class="card-value">1.2456 BTC</div>
+                    <div class="card-value" style="font-size: 1.8rem;">$42,568.75</div>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i> +$1,250.50 (5.2%)
+                    </div>
+                </div>
+                
+                <div class="wallet-card">
+                    <div class="wallet-header">
+                        <i class="fab fa-ethereum"></i>
+                        <div class="wallet-details">
+                            <h3>محفظة الإيثريوم</h3>
+                            <p>ETH/USDT</p>
+                        </div>
+                    </div>
+                    <div class="card-value">8.5642 ETH</div>
+                    <div class="card-value" style="font-size: 1.8rem;">$15,245.30</div>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i> +$320.75 (3.8%)
+                    </div>
+                </div>
+                
+                <div class="wallet-card">
+                    <div class="wallet-header">
+                        <i class="fas fa-dollar-sign"></i>
+                        <div class="wallet-details">
+                            <h3>المحفظة الرئيسية</h3>
+                            <p>USDT</p>
+                        </div>
+                    </div>
+                    <div class="card-value">24,568.75 USDT</div>
+                    <div class="card-value" style="font-size: 1.8rem;">$24,568.75</div>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i> +$120.50 (0.5%)
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-transactions">
+                <div class="transactions-header">
+                    <h3>آخر العمليات على المحفظة</h3>
+                    <a href="#" class="forgot-password">عرض الكل</a>
+                </div>
+                
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>الوصف</th>
+                            <th>المبلغ</th>
+                            <th>النوع</th>
+                            <th>التاريخ</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>إيداع USDT</td>
+                            <td>$5,000.00</td>
+                            <td><span class="transaction-type type-deposit">إيداع</span></td>
+                            <td>11/06/2023</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                        <tr>
+                            <td>شراء BTC</td>
+                            <td>$2,875.25</td>
+                            <td><span class="transaction-type type-trade">تداول</span></td>
+                            <td>10/06/2023</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                        <tr>
+                            <td>سحب USDT</td>
+                            <td>$3,000.00</td>
+                            <td><span class="transaction-type type-withdraw">سحب</span></td>
+                            <td>09/06/2023</td>
+                            <td><span class="status-badge status-pending">قيد الانتظار</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- صفحة التداول -->
+        <div id="trading-page" class="page">
+            <div class="header">
+                <div class="welcome">
+                    <h1>منصة التداول</h1>
+                    <p>تداول العملات الرقمية بسهولة وأمان</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-login" style="width: auto; padding: 12px 25px;">
+                        <i class="fas fa-chart-line"></i> بدء التداول
+                    </button>
+                </div>
+            </div>
+            
+            <div class="trading-pairs">
+                <div class="pair-card">
+                    <div class="pair-icon">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <h3>BTC/USDT</h3>
+                    <p>$42,568.75</p>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i> +5.2%
+                    </div>
+                </div>
+                
+                <div class="pair-card">
+                    <div class="pair-icon">
+                        <i class="fab fa-ethereum"></i>
+                    </div>
+                    <h3>ETH/USDT</h3>
+                    <p>$2,245.30</p>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i> +3.8%
+                    </div>
+                </div>
+                
+                <div class="pair-card">
+                    <div class="pair-icon">
+                        <i class="fab fa-xrp"></i>
+                    </div>
+                    <h3>XRP/USDT</h3>
+                    <p>$0.568</p>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-down"></i> -1.2%
+                    </div>
+                </div>
+                
+                <div class="pair-card">
+                    <div class="pair-icon">
+                        <i class="fab fa-btc"></i>
+                    </div>
+                    <h3>LTC/USDT</h3>
+                    <p>$85.75</p>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i> +2.5%
+                    </div>
+                </div>
+                
+                <div class="pair-card">
+                    <div class="pair-icon">
+                        <i class="fab fa-solana"></i>
+                    <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>SOL/USDT</h3>
+                    <p>$32.45</p>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-up"></i> +7.1%
+                    </div>
+                </div>
+                
+                <div class="pair-card">
+                    <div class="pair-icon">
+                        <i class="fab fa-btc"></i>
+                    </div>
+                    <h3>ADA/USDT</h3>
+                    <p>$0.45</p>
+                    <div class="card-change">
+                        <i class="fas fa-arrow-down"></i> -0.8%
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>مخطط التداول - BTC/USDT</h3>
+                    <div class="time-filters">
+                        <button>1 ساعة</button>
+                        <button>1 يوم</button>
+                        <button>1 أسبوع</button>
+                    </div>
+                </div>
+                <div class="chart-placeholder">
+                    <i class="fas fa-chart-line"></i> رسم بياني لسعر BTC/USDT
+                </div>
+            </div>
+        </div>
+        
+        <!-- صفحة التحويلات -->
+        <div id="transfer-page" class="page">
+            <div class="header">
+                <div class="welcome">
+                    <h1>التحويلات المالية</h1>
+                    <p>تحويل الأموال بين الحسابات والمحافظ</p>
+                </div>
+            </div>
+            
+            <div class="transfer-form">
+                <div class="form-group">
+                    <label for="from-account">من الحساب</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-wallet"></i>
+                        <select id="from-account" class="form-control">
+                            <option>المحفظة الرئيسية (USDT)</option>
+                            <option>محفظة البيتكوين (BTC)</option>
+                            <option>محفظة الإيثريوم (ETH)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="to-account">إلى الحساب</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-wallet"></i>
+                        <select id="to-account" class="form-control">
+                            <option>محفظة البيتكوين (BTC)</option>
+                            <option>المحفظة الرئيسية (USDT)</option>
+                            <option>محفظة الإيثريوم (ETH)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">المبلغ</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <input type="number" id="amount" class="form-control" placeholder="المبلغ المراد تحويله">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="note">ملاحظات (اختياري)</label>
+                    <textarea id="note" class="form-control" placeholder="أضف ملاحظة للتحويل" rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="btn-login">تحويل الأموال</button>
+            </div>
+        </div>
+        
+        <!-- صفحة السجل -->
+        <div id="history-page" class="page">
+            <div class="header">
+                <div class="welcome">
+                    <h1>سجل العمليات</h1>
+                    <p>جميع عملياتك المالية والتداولية</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-login" style="width: auto; padding: 12px 25px;">
+                        <i class="fas fa-download"></i> تصدير السجل
+                    </button>
+                </div>
+            </div>
+            
+            <div class="recent-transactions">
+                <div class="transactions-header">
+                    <h3>جميع العمليات</h3>
+                    <div>
+                        <select class="form-control" style="width: auto; display: inline-block;">
+                            <option>آخر 7 أيام</option>
+                            <option>آخر 30 يوم</option>
+                            <option>آخر 90 يوم</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>الوصف</th>
+                            <th>المبلغ</th>
+                            <th>النوع</th>
+                            <th>التاريخ</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>بيع BTC/USDT</td>
+                            <td>$1,250.50</td>
+                            <td><span class="transaction-type type-trade">تداول</span></td>
+                            <td>12/06/2023</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                        <tr>
+                            <td>إيداع بالبطاقة</td>
+                            <td>$5,000.00</td>
+                            <td><span class="transaction-type type-deposit">إيداع</span></td>
+                            <td>11/06/2023</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                        <tr>
+                            <td>تحويل إلى BTC</td>
+                            <td>$2,875.25</td>
+                            <td><span class="transaction-type type-transfer">تحويل</span></td>
+                            <td>10/06/2023</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                        <tr>
+                            <td>سحب إلى البنك</td>
+                            <td>$3,000.00</td>
+                            <td><span class="transaction-type type-withdraw">سحب</span></td>
+                            <td>09/06/2023</td>
+                            <td><span class="status-badge status-pending">قيد الانتظار</span></td>
+                        </tr>
+                        <tr>
+                            <td>بيع XRP/USDT</td>
+                            <td>$845.75</td>
+                            <td><span class="transaction-type type-trade">تداول</span></td>
+                            <td>08/06/2023</td>
+                            <td><span class="status-badge status-completed">مكتمل</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- صفحة الإعدادات -->
+        <div id="settings-page" class="page">
+            <div class="header">
+                <div class="welcome">
+                    <h1>إعدادات الحساب</h1>
+                    <p>إدارة إعدادات حسابك وأمانه</p>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>معلومات الحساب</h3>
+                </div>
+                <div class="transfer-form">
+                    <div class="form-group">
+                        <label for="full-name">الاسم الكامل</label>
+                        <input type="text" id="full-name" class="form-control" placeholder="محمد أحمد" value="محمد أحمد">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email-address">البريد الإلكتروني</label>
+                        <input type="email" id="email-address" class="form-control" placeholder="mohamed@example.com" value="mohamed@example.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف</label>
+                        <input type="tel" id="phone" class="form-control" placeholder="+966501234567" value="+966501234567">
+                    </div>
+                    
+                    <button type="submit" class="btn-login">حفظ التعديلات</button>
+                </div>
+            </div>
+            
+            <div class="chart-card" style="margin-top: 25px;">
+                <div class="chart-header">
+                    <h3>الأمان</h3>
+                </div>
+                <div class="transfer-form">
+                    <div class="form-group">
+                        <label>المصادقة الثنائية</label>
+                        <div class="options">
+                            <div class="remember">
+                                <input type="checkbox" id="two-factor" checked>
+                                <label for="two-factor">تفعيل المصادقة الثنائية</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>إشعارات الدخول</label>
+                        <div class="options">
+                            <div class="remember">
+                                <input type="checkbox" id="login-notify" checked>
+                                <label for="login-notify">تلقي إشعارات عند تسجيل الدخول</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>تغيير كلمة المرور</label>
+                        <a href="#" class="btn-login" style="display: block; text-align: center; background: rgba(255,255,255,0.1);">
+                            تغيير كلمة المرور
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- صفحة الدعم -->
+        <div id="support-page" class="page">
+            <div class="header">
+                <div class="welcome">
+                    <h1>الدعم الفني</h1>
+                    <p>نحن هنا لمساعدتك في أي استفسار أو مشكلة</p>
+                </div>
+            </div>
+            
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3>الدردشة المباشرة</h3>
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <p style="color: #a0aec0; margin-bottom: 20px;">تواصل مع ممثل الدعم مباشرة لحل مشكلتك</p>
+                    <button class="btn-login">بدء الدردشة</button>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3>التذاكر</h3>
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <p style="color: #a0aec0; margin-bottom: 20px;">أرسل تذكرة دعم وسنرد عليك خلال 24 ساعة</p>
+                    <button class="btn-login">إنشاء تذكرة جديدة</button>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="card-header">
+                        <h3>الأسئلة الشائعة</h3>
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <p style="color: #a0aec0; margin-bottom: 20px;">استكشف الأسئلة الشائعة وإجاباتها</p>
+                    <button class="btn-login">تصفح الأسئلة</button>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <h3>تواصل معنا</h3>
+                </div>
+                <div class="transfer-form">
+                    <div class="form-group">
+                        <label for="support-subject">الموضوع</label>
+                        <input type="text" id="support-subject" class="form-control" placeholder="موضوع الاستفسار">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="support-message">الرسالة</label>
+                        <textarea id="support-message" class="form-control" placeholder="أدخل رسالتك هنا" rows="5"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-login">إرسال الرسالة</button>
+                           </div>
+                </div>
+            </div>
+        </div>
+    </section>    <script>
+        // تبديل بين التبويبات
+        const tabs = document.querySelectorAll('.tab');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+        
+        // تسجيل الدخول
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('.btn-login');
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if(email && password) {
+                btn.innerHTML = 'جاري التحقق... <i class="fas fa-spinner fa-spin"></i>';
+                
+                setTimeout(() => {
+                    btn.innerHTML = 'تم الدخول بنجاح! <i class="fas fa-check"></i>';
+                    btn.style.background = 'linear-gradient(to right, #00cc66, #00cc99)';
+                    
+                    // الانتقال إلى لوحة التحكم بعد تأخير
+                    setTimeout(() => {
+                        document.getElementById('loginSection').style.display = 'none';
+                        document.getElementById('dashboard').style.display = 'block';
+                    }, 1500);
+                }, 2000);
+            }
+        });
+        
+        // تفاعلية القائمة الجانبية
+        const navItems = document.querySelectorAll('.nav-item');
+        const pages = document.querySelectorAll('.page');
+        
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // إزالة النشاط من جميع العناصر
+                navItems.forEach(i => i.classList.remove('active'));
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // إضافة النشاط للعنصر الحالي
+                this.classList.add('active');
+                
+                // إظهار الصفحة المحددة
+                const pageId = this.getAttribute('data-page');
+                document.getElementById(pageId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
